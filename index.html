@@ -3,115 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aria's Private Space</title>
+    <title>Sharing My Life</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=1000'); /* 背景图：建议换成你自己的生活照链接 */
-            background-size: cover;
-            background-position: center;
+            font-family: -apple-system, sans-serif;
+            background: #000;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
+        /* 背景使用氛围感图片：咖啡店、大马街景或居家角落 */
+        .bg-image {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000') center/cover;
+            filter: blur(10px) brightness(0.5);
+            transform: scale(1.1);
+            z-index: 1;
+        }
+        .container {
+            position: relative; z-index: 10;
+            width: 92%; max-width: 380px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 35px;
             padding: 40px 25px;
-            width: 90%;
-            max-width: 380px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
-        .avatar-wrapper {
-            position: relative;
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 20px;
+        .step { display: none; animation: fadeIn 0.4s ease-out; }
+        .step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        /* 使用氛围小图代替人脸：比如一束花、一杯咖啡、一个可爱的挂饰 */
+        .deco-img { width: 90px; height: 90px; border-radius: 20px; object-fit: cover; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        
+        h2 { font-size: 21px; color: #1c1e21; margin-bottom: 20px; line-height: 1.5; font-weight: 600; }
+        
+        .opt-btn {
+            display: block; width: 100%; padding: 18px; margin-bottom: 15px;
+            background: #f5f6f7; border: 1.5px solid #eee; border-radius: 18px;
+            font-size: 16px; color: #1c1e21; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
         }
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #fff;
-        }
-        .online-badge {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 18px;
-            height: 18px;
-            background: #25D366;
-            border: 3px solid #fff;
-            border-radius: 50%;
-        }
-        h2 { font-size: 24px; color: #1c1e21; margin-bottom: 8px; }
-        .tag {
-            background: #f0f2f5;
-            color: #65676b;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-        p {
-            color: #444;
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-        .wa-btn {
-            background: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 18px;
-            border-radius: 50px;
-            display: block;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+        .opt-btn:active { background: #e4e6eb; transform: translateY(2px); }
+        
+        .final-btn {
+            background: #25D366; color: white; padding: 20px;
+            border-radius: 50px; text-decoration: none; display: block;
+            font-weight: bold; font-size: 18px; margin-top: 15px;
+            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
             animation: pulse 2s infinite;
-            transition: all 0.3s;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .wa-btn:active { transform: scale(0.95); }
-        .footer-info {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #888;
-        }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); } 70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+        
+        .loading-text { font-size: 14px; color: #888; margin: 20px 0; letter-spacing: 1px; }
+        .footer { font-size: 12px; color: #ccc; margin-top: 25px; }
     </style>
 </head>
 <body>
-    <div class="glass-card">
-        <div class="avatar-wrapper">
-            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=500" class="avatar" alt="Aria">
-            <div class="online-badge"></div>
+    <div class="bg-image"></div>
+    
+    <div class="container">
+        <div class="step active" id="step1">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=200" class="deco-img">
+            <h2>虽然我们还不认识，但我感觉哥哥一定是个很 Nice 的人吧？😊</h2>
+            <button class="opt-btn" onclick="nextStep(2)">应该是吧，你觉得咧？</button>
+            <button class="opt-btn" onclick="nextStep(2)">看对谁咯，哈哈</button>
         </div>
-        <h2>Aria ✨</h2>
-        <div class="tag">📍 马来西亚 · 24岁</div>
-        <p>在大马生活好无聊呀，想找个真诚的人聊聊天，分享日常。只加诚心的哥哥，非诚勿扰哦～ ❤️</p>
-        
-        <a href="javascript:void(0);" onclick="goWA()" class="wa-btn">💬 私聊我 (在线中)</a>
-        
-        <div class="footer-info">已通过真人认证 · 100% 私密聊天</div>
+
+        <div class="step" id="step2">
+            <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=200" class="deco-img">
+            <h2>其实我超无聊的... 你比较喜欢平时发信息，还是偶尔出来喝茶喝咖啡？☕</h2>
+            <button class="opt-btn" onclick="showLoading()">发消息陪我就好啦</button>
+            <button class="opt-btn" onclick="showLoading()">可以啊，找机会出去 Jalan-Jalan</button>
+        </div>
+
+        <div class="step" id="loadingStep">
+            <div class="loading-text">正在连接 Aria 的 WhatsApp...</div>
+            <div style="font-size: 30px; animation: bounce 1s infinite;">💌</div>
+        </div>
+
+        <div class="step" id="finalStep">
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=200" class="deco-img">
+            <h2>Ngam 哦！我也在等一个频率相同的人。✨</h2>
+            <p style="color:#65676b; font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
+                这是我的私密号，记得跟我打个招呼，不要让我等太久哦，Abang...
+            </p>
+            <a href="javascript:void(0);" onclick="goWA()" class="final-btn">💬 直接加我 WhatsApp</a>
+        </div>
     </div>
 
     <script>
+        function nextStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+        }
+
+        function showLoading() {
+            nextStep('Loading');
+            setTimeout(() => {
+                nextStep('Final');
+            }, 1800);
+        }
+
         function goWA() {
-            var text = encodeURIComponent("哈喽Aria，我在FB看到你，想和你认识一下~");
+            var text = encodeURIComponent("你好Aria，我通过了你的测试，可以认识你吗？");
             window.location.href = "https://api.whatsapp.com/send?phone=60167263029&text=" + text;
         }
     </script>
