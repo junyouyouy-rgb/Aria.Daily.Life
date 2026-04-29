@@ -3,35 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aria's Private Blog</title>
+    <title>Aria's Private Space</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px 20px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; width: 85%; max-width: 350px; }
-        .avatar { width: 90px; height: 90px; border-radius: 50%; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h2 { margin: 10px 0; font-size: 22px; color: #333; }
-        p { color: #777; font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
-        .btn { display: block; background: #25D366; color: white; text-decoration: none; padding: 16px; border-radius: 50px; font-weight: bold; font-size: 17px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=1000'); /* 背景图：建议换成你自己的生活照链接 */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px 25px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .avatar-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+        }
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+        }
+        .online-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            background: #25D366;
+            border: 3px solid #fff;
+            border-radius: 50%;
+        }
+        h2 { font-size: 24px; color: #1c1e21; margin-bottom: 8px; }
+        .tag {
+            background: #f0f2f5;
+            color: #65676b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        p {
+            color: #444;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        .wa-btn {
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 50px;
+            display: block;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+            animation: pulse 2s infinite;
+            transition: all 0.3s;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .wa-btn:active { transform: scale(0.95); }
+        .footer-info {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #888;
+        }
     </style>
-    
-    </head>
+</head>
 <body>
-    <div class="card">
-        <img src="https://via.placeholder.com/150" class="avatar" alt="Aria">
-        <h2>很高兴认识你 ❤️</h2>
-        <p>在大马生活好无聊呀，想找个真诚的人聊聊天，分享一下生活。点下面加我吧！</p>
+    <div class="glass-card">
+        <div class="avatar-wrapper">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=500" class="avatar" alt="Aria">
+            <div class="online-badge"></div>
+        </div>
+        <h2>Aria ✨</h2>
+        <div class="tag">📍 马来西亚 · 24岁</div>
+        <p>在大马生活好无聊呀，想找个真诚的人聊聊天，分享日常。只加诚心的哥哥，非诚勿扰哦～ ❤️</p>
         
-        <a href="javascript:void(0);" onclick="redirectToWA()" class="btn">点击直接打开 WhatsApp</a>
+        <a href="javascript:void(0);" onclick="goWA()" class="wa-btn">💬 私聊我 (在线中)</a>
+        
+        <div class="footer-info">已通过真人认证 · 100% 私密聊天</div>
     </div>
 
     <script>
-        function redirectToWA() {
-            // 这里可以放多个号码实现随机分流，保护账号
-            var numbers = ['60167263029']; 
-            var randomNum = numbers[Math.floor(Math.random() * numbers.length)];
-            var text = encodeURIComponent("哈喽，我是从FB看到你的，很高兴认识你");
-            
-            // 使用 api 格式确保 iOS 跳转更稳
-            window.location.href = "https://api.whatsapp.com/send?phone=" + randomNum + "&text=" + text;
+        function goWA() {
+            var text = encodeURIComponent("哈喽Aria，我在FB看到你，想和你认识一下~");
+            window.location.href = "https://api.whatsapp.com/send?phone=60167263029&text=" + text;
         }
     </script>
 </body>
