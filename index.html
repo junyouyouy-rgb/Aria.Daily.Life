@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>遇见 Aria</title>
     
-    <!-- ========================================== -->
-    <!-- Meta Pixel Code (像素基础代码 - 保持原始结构) -->
-    <!-- ========================================== -->
+    <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -60,7 +58,15 @@
         .step { display: none; }
         .step.active { display: block; animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .final-btn { background: var(--wa-green); color: white; padding: 18px; border-radius: 50px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; font-size: 18px; margin-top: 15px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); animation: bounce 2s infinite; }
+        
+        .final-btn { 
+            background: var(--wa-green); color: white; padding: 18px; border-radius: 50px; 
+            text-decoration: none; display: flex; align-items: center; justify-content: center; 
+            gap: 10px; font-weight: bold; font-size: 18px; margin-top: 15px; 
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); 
+            animation: bounce 2s infinite; 
+        }
+        
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
         .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-pink); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -90,13 +96,14 @@
         <div class="step" id="stepFinal">
             <div class="img-wrapper"><img src="3.jpg" class="deco-img"><div class="status-online"></div></div>
             <h2>Ngam 哦！就是这种感觉。✨</h2>
-            <p style="color:#666; font-size: 14px; margin-bottom: 20px;">这是我的私密 WhatsApp，<br>记得跟我打招呼，别让我等太久哦... ❤️</p>
-            <!-- 确认此 ID 供下方脚本调用 -->
-            <a href="javascript:void(0);" id="contactButton" class="final-btn">💬 立即开始私聊</a>
+            <p style="color:#666; font-size: 13px; line-height: 1.5; margin-bottom: 20px;">
+                加我时记得先打个招呼，我才看得见你哦，不用害羞，这是我的私人号... ❤️
+            </p>
+            <!-- 针对 iOS 优化的按钮：直接写 href 链接，删除 JS 跳转 -->
+            <a href="https://hw.url668.com/s/GTCPr8BQN" id="contactButton" target="_blank" class="final-btn">💬 去 WhatsApp 找我 ✨</a>
         </div>
     </div>
 
-    <!-- 基础交互逻辑 -->
     <script>
         const progress = document.getElementById('progress');
         function showStep(stepId) { 
@@ -117,22 +124,16 @@
         }
     </script>
 
-    <!-- ========================================== -->
-    <!-- 你要求的特定事件追踪脚本 (保持原始监听结构) -->
-    <!-- ========================================== -->
+    <!-- 针对 iOS 优化的事件追踪脚本 -->
     <script type="text/javascript">
-    document.getElementById('contactButton').addEventListener('click', function() {
-        // 1. 插入事件代码 (Contact)
+    document.getElementById('contactButton').addEventListener('click', function(e) {
+        // 1. 触发像素追踪 (Contact)
         if (typeof fbq === 'function') {
             fbq('track', 'Contact');
         }
-        
-        // 2. 延迟跳转确保数据传达 FB 服务器
-        setTimeout(function() {
-            window.location.href = "https://hw.url668.com/s/GTCPr8BQN";
-        }, 200);
+        // 注意：不在这里写 window.location.href，让 <a> 标签的默认 href 起作用
+        // 这种原生跳转在 iOS 上最稳定，不会报 404 或被拦截
     }, false);
     </script>
-
 </body>
 </html>
