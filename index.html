@@ -2,124 +2,218 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharing My Life</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aria's Secret Garden</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #ff4d6d; /* 甜美粉 */
+            --wa-green: #25D366;
+            --bg-overlay: rgba(0, 0, 0, 0.4);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #2d3436;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            font-family: -apple-system, sans-serif;
+            font-family: -apple-system, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
             background: #000;
             height: 100vh;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden;
         }
+
+        /* 动态背景 */
         .bg-image {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000') center/cover;
-            filter: blur(12px) brightness(0.5);
+            filter: blur(8px) brightness(0.6);
             transform: scale(1.1);
             z-index: 1;
         }
+
         .container {
             position: relative; z-index: 10;
-            width: 90%; max-width: 360px;
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 35px;
-            padding: 40px 25px;
+            width: 90%; max-width: 380px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 35px 25px;
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.3);
+            overflow: hidden;
         }
-        .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
-        .deco-img { width: 90px; height: 90px; border-radius: 20px; object-fit: cover; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        h2 { font-size: 20px; color: #1c1e21; margin-bottom: 20px; line-height: 1.5; font-weight: 600; }
-        
+
+        /* 进度条 */
+        .progress-bar {
+            position: absolute; top: 0; left: 0; height: 4px;
+            background: var(--primary-color);
+            transition: width 0.4s ease;
+            width: 33%;
+        }
+
+        /* 头像/图片容器 */
+        .img-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        .deco-img { 
+            width: 100px; height: 100px; 
+            border-radius: 50%; /* 圆形更显亲切 */
+            object-fit: cover; 
+            border: 3px solid #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .status-dot {
+            position: absolute; bottom: 5px; right: 8px;
+            width: 15px; height: 15px;
+            background: #4cd137;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            animation: pulse-green 2s infinite;
+        }
+
+        h2 { 
+            font-size: 22px; color: var(--text-main); 
+            margin-bottom: 25px; line-height: 1.4; font-weight: 700; 
+        }
+
+        /* 按钮美化 */
         .opt-btn {
-            display: block; width: 100%; padding: 16px; margin-bottom: 12px;
-            background: #f5f6f7; border: 1px solid #eee; border-radius: 15px;
-            font-size: 16px; color: #1c1e21; font-weight: 600;
-            cursor: pointer; transition: all 0.2s;
+            display: block; width: 100%; padding: 16px; margin-bottom: 15px;
+            background: #fff; 
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 18px;
+            font-size: 16px; color: var(--text-main); font-weight: 500;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .opt-btn:active { background: #e4e6eb; transform: translateY(2px); }
-        
+        .opt-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .opt-btn:active { transform: scale(0.96); background: #f8f9fa; }
+
+        /* 步骤控制 */
+        .step { display: none; }
+        .step.active { display: block; animation: slideIn 0.5s ease-out; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 最后一步按钮 */
         .final-btn {
-            background: #25D366; color: white; padding: 18px;
-            border-radius: 50px; text-decoration: none; display: block;
-            font-weight: bold; font-size: 17px; margin-top: 15px;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-            animation: pulse 2s infinite;
+            background: var(--wa-green); color: white; padding: 18px;
+            border-radius: 50px; text-decoration: none; display: flex;
+            align-items: center; justify-content: center; gap: 8px;
+            font-weight: bold; font-size: 18px; margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-        
-        .loading-text { font-size: 14px; color: #888; margin: 20px 0; }
-        .bounce { font-size: 30px; animation: bounce 1s infinite; display: inline-block; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .final-btn:active { transform: scale(0.95); }
+
+        /* 加载动画 */
+        .loading-box { padding: 40px 0; }
+        .spinner {
+            width: 40px; height: 40px; border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%; animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(76, 209, 55, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(76, 209, 55, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(76, 209, 55, 0); }
+        }
     </style>
 </head>
 <body>
     <div class="bg-image"></div>
     
     <div class="container">
+        <div class="progress-bar" id="progress"></div>
+
+        <!-- 第一步 -->
         <div class="step active" id="step1">
-            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=200" class="deco-img">
-            <h2>虽然我们还不认识，但我感觉哥哥一定是个很 Nice 的人吧？😊</h2>
-            <button class="opt-btn" onclick="nextStep(2)">应该是吧，你觉得咧？</button>
-            <button class="opt-btn" onclick="nextStep(2)">看对谁咯，哈哈</button>
+            <div class="img-wrapper">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=200" class="deco-img">
+                <div class="status-dot"></div>
+            </div>
+            <h2>虽然我们还不认识...<br>但我感觉你一定很 Nice 吧？😊</h2>
+            <button class="opt-btn" onclick="nextStep(2, 66)">应该是吧，你觉得咧？</button>
+            <button class="opt-btn" onclick="nextStep(2, 66)">看对谁咯，哈哈</button>
         </div>
 
+        <!-- 第二步 -->
         <div class="step" id="step2">
-            <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=200" class="deco-img">
-            <h2>其实我超无聊的... 你比较喜欢发消息陪我，还是偶尔出来 Jalan-Jalan？☕</h2>
-            <button class="opt-btn" onclick="runLoading()">发消息陪我就好啦</button>
-            <button class="opt-btn" onclick="runLoading()">找机会出来喝茶啊</button>
+            <div class="img-wrapper">
+                <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=200" class="deco-img">
+            </div>
+            <h2>其实我超无聊的...<br>你喜欢聊天，还是出来见面？☕</h2>
+            <button class="opt-btn" onclick="runLoading()">网上陪我聊聊天</button>
+            <button class="opt-btn" onclick="runLoading()">找机会出来喝杯咖啡</button>
         </div>
 
+        <!-- 加载中 -->
         <div class="step" id="stepLoading">
-            <div class="loading-text">正在为你连接 Aria 的 WhatsApp...</div>
-            <div class="bounce">💌</div>
+            <div class="loading-box">
+                <div class="spinner"></div>
+                <p style="color: #666; font-size: 15px;">正在建立安全连接...</p>
+            </div>
         </div>
 
+        <!-- 结果页 -->
         <div class="step" id="stepFinal">
-            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=200" class="deco-img">
-            <h2>Ngam 哦！我也在等一个频率相同的人。✨</h2>
-            <p style="color:#65676b; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
-                这是我的私密号，记得跟我打个招呼，不要让我等太久哦，Abang...
+            <div class="img-wrapper">
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=200" class="deco-img">
+                <div class="status-dot"></div>
+            </div>
+            <h2>Ngam 哦！✨</h2>
+            <p style="color:#636e72; font-size: 15px; line-height: 1.6; margin-bottom: 10px;">
+                我也在等一个有缘人。
             </p>
-            <a href="javascript:void(0);" onclick="goWA()" class="final-btn">💬 直接加我 WhatsApp</a>
+            <p style="color:#636e72; font-size: 14px; font-style: italic;">
+                这是我的私密号，别让我等太久...
+            </p>
+            <a href="javascript:void(0);" onclick="goWA()" class="final-btn">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.894 4.44-9.897 9.887-.001 2.228.616 3.919 1.67 5.743l-1.097 4.011 4.224-1.108zm11.336-7.391c-.305-.152-1.802-.888-2.081-.989-.279-.101-.482-.152-.684.152-.203.304-.787.989-.965 1.191-.177.203-.355.228-.66.076-.304-.152-1.284-.474-2.447-1.511-.904-.806-1.513-1.802-1.69-2.106-.177-.304-.019-.468.133-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.506.101-.203.051-.38-.025-.532-.076-.152-.684-1.647-.938-2.255-.247-.593-.499-.512-.684-.522-.177-.01-.38-.011-.584-.011-.203 0-.532.076-.811.38-.279.304-1.065 1.039-1.065 2.534s1.09 2.94 1.242 3.142c.152.203 2.146 3.277 5.197 4.591.725.313 1.291.5 1.733.641.728.231 1.391.198 1.915.12.584-.088 1.802-.736 2.056-1.445.253-.709.253-1.317.177-1.445-.077-.127-.279-.203-.584-.355z"/></svg>
+                直接加我 WhatsApp
+            </a>
         </div>
     </div>
 
     <script>
-        // 通用切换函数
+        const progress = document.getElementById('progress');
+
         function showStep(stepId) {
-            // 隐藏所有步骤
-            document.querySelectorAll('.step').forEach(s => {
-                s.classList.remove('active');
-            });
-            // 显示指定步骤
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             const target = document.getElementById(stepId);
-            if(target) {
-                target.classList.add('active');
-            }
+            if(target) target.classList.add('active');
         }
 
-        function nextStep(num) {
+        function nextStep(num, barWidth) {
+            progress.style.width = barWidth + '%';
             showStep('step' + num);
         }
 
         function runLoading() {
+            progress.style.width = '90%';
             showStep('stepLoading');
-            // 1.5秒后自动跳到最后一步
             setTimeout(() => {
+                progress.style.width = '100%';
                 showStep('stepFinal');
-            }, 1500);
+            }, 1800); // 增加一点点延迟，显得更真实
         }
 
         function goWA() {
-            var text = encodeURIComponent("你好Aria，我通过了你的测试，可以认识你吗？");
-            window.location.href = "https://api.whatsapp.com/send?phone=60167263029&text=" + text;
+            // 这里可以换成你自己的话术
+            const text = encodeURIComponent("你好Aria，我看到你的分享，想认识你一下 😊");
+            const phone = "60167263029";
+            // 使用 wa.me 更简洁，兼容性更好
+            window.location.href = `https://wa.me/${phone}?text=${text}`;
         }
     </script>
 </body>
