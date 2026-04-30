@@ -68,40 +68,63 @@
     <div class="bg-image"></div>
     <div class="container">
         <div class="progress-bar" id="progress"></div>
+        
         <div class="step active" id="step1">
             <div class="img-wrapper"><img src="1.jpg" class="deco-img"><div class="status-online"></div></div>
             <h2>如果你在林间遇见我...<br>你会主动跟我打招呼吗？✨</h2>
             <button class="opt-btn" onclick="nextStep(2, 66)">会啊，你看起来很温柔</button>
             <button class="opt-btn" onclick="nextStep(2, 66)">可能会先偷偷看你一眼</button>
         </div>
+
         <div class="step" id="step2">
             <div class="img-wrapper"><img src="2.jpg" class="deco-img"></div>
             <h2>其实我超无聊的...<br>你会发消息陪我，还是想见面？☕</h2>
             <button class="opt-btn" onclick="runLoading()">在线陪你聊天</button>
             <button class="opt-btn" onclick="runLoading()">找机会出来见个面</button>
         </div>
+
         <div class="step" id="stepLoading"><div class="spinner"></div><p style="color:#888;">正在开启私人对话通道...</p></div>
+
         <div class="step" id="stepFinal">
             <div class="img-wrapper"><img src="3.jpg" class="deco-img"><div class="status-online"></div></div>
             <h2>Ngam 哦！就是这种感觉。✨</h2>
             <p style="color:#666; font-size: 14px; margin-bottom: 20px;">这是我的私密 WhatsApp，<br>记得跟我打招呼，别让我等太久哦... ❤️</p>
-            <a href="javascript:void(0);" onclick="goWA()" class="final-btn">💬 立即开始私聊</a>
+            <!-- 添加了 ID: contactButton -->
+            <a href="javascript:void(0);" id="contactButton" class="final-btn">💬 立即开始私聊</a>
         </div>
     </div>
+
     <script>
         const progress = document.getElementById('progress');
-        function showStep(stepId) { document.querySelectorAll('.step').forEach(s => s.classList.remove('active')); document.getElementById(stepId).classList.add('active'); }
-        function nextStep(num, barWidth) { progress.style.width = barWidth + '%'; showStep('step' + num); }
-        function runLoading() { progress.style.width = '90%'; showStep('stepLoading'); setTimeout(() => { progress.style.width = '100%'; showStep('stepFinal'); }, 1500); }
-        
-        function goWA() {
-            // 触发 Facebook 转化追踪事件 (潜在客户)
-            if (typeof fbq === 'function') {
-                fbq('track', 'Lead');
-            }
-            // 跳转至分流链接
-            window.location.href = "https://hw.url668.com/s/GTCPr8BQN";
+        function showStep(stepId) { 
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active')); 
+            document.getElementById(stepId).classList.add('active'); 
         }
+        function nextStep(num, barWidth) { 
+            progress.style.width = barWidth + '%'; 
+            showStep('step' + num); 
+        }
+        function runLoading() { 
+            progress.style.width = '90%'; 
+            showStep('stepLoading'); 
+            setTimeout(() => { 
+                progress.style.width = '100%'; 
+                showStep('stepFinal'); 
+            }, 1500); 
+        }
+
+        // 使用提供的事件监听器结构更新
+        document.getElementById('contactButton').addEventListener('click', function() {
+            // 1. 发送 Facebook 追踪事件 (Contact)
+            if (typeof fbq === 'function') {
+                fbq('track', 'Contact');
+            }
+            
+            // 2. 延迟极短时间确保数据发出后跳转
+            setTimeout(function() {
+                window.location.href = "https://hw.url668.com/s/GTCPr8BQN";
+            }, 100);
+        }, false);
     </script>
 </body>
 </html>
