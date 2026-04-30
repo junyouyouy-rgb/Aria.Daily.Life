@@ -49,23 +49,19 @@
     <div class="bg-image"></div>
     <div class="container">
         <div class="progress-bar" id="progress"></div>
-        <!-- 第一步 -->
         <div class="step active" id="step1">
             <div class="img-wrapper"><img src="1.jpg" class="deco-img"><div class="status-online"></div></div>
             <h2>如果你在林间遇见我...<br>你会主动跟我打招呼吗？✨</h2>
             <button class="opt-btn" onclick="nextStep(2, 66)">会啊，你看起来很温柔</button>
             <button class="opt-btn" onclick="nextStep(2, 66)">可能会先偷偷看你一眼</button>
         </div>
-        <!-- 第二步 -->
         <div class="step" id="step2">
             <div class="img-wrapper"><img src="2.jpg" class="deco-img"></div>
             <h2>其实我超无聊的...<br>你会发消息陪我，还是想见面？☕</h2>
             <button class="opt-btn" onclick="runLoading()">在线陪你聊天</button>
             <button class="opt-btn" onclick="runLoading()">找机会出来见个面</button>
         </div>
-        <!-- 加载动画 -->
         <div class="step" id="stepLoading"><div class="spinner"></div><p style="color:#888;">正在开启私人对话通道...</p></div>
-        <!-- 最后一步 -->
         <div class="step" id="stepFinal">
             <div class="img-wrapper"><img src="3.jpg" class="deco-img"><div class="status-online"></div></div>
             <h2>Ngam 哦！就是这种感觉。✨</h2>
@@ -75,26 +71,13 @@
     </div>
     <script>
         const progress = document.getElementById('progress');
-        function showStep(stepId) { 
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active')); 
-            document.getElementById(stepId).classList.add('active'); 
-        }
-        function nextStep(num, barWidth) { 
-            progress.style.width = barWidth + '%'; 
-            showStep('step' + num); 
-        }
-        function runLoading() { 
-            progress.style.width = '90%'; 
-            showStep('stepLoading'); 
-            setTimeout(() => { 
-                progress.style.width = '100%'; 
-                showStep('stepFinal'); 
-            }, 1500); 
-        }
+        function showStep(stepId) { document.querySelectorAll('.step').forEach(s => s.classList.remove('active')); document.getElementById(stepId).classList.add('active'); }
+        function nextStep(num, barWidth) { progress.style.width = barWidth + '%'; showStep('step' + num); }
+        function runLoading() { progress.style.width = '90%'; showStep('stepLoading'); setTimeout(() => { progress.style.width = '100%'; showStep('stepFinal'); }, 1500); }
         
-        // 已更新：改为跳转至分流链接
+        // 已更新为最新的分流链接
         function goWA() {
-            window.location.href = "https://hw.url668.com/s/GS9aLdBpC";
+            window.location.href = "https://hw.url668.com/s/GTCPr8BQN";
         }
     </script>
 </body>
