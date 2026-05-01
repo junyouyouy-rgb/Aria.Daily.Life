@@ -18,122 +18,121 @@
     fbq('init', '1313666206897227');
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1313666206897227&ev=PageView&noscript=1"
-    /></noscript>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1313666206897227&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel Code -->
 
     <style>
-        :root {
-            --primary-pink: #ff758c;
-            --wa-green: #25D366;
-            --glass-bg: rgba(255, 255, 255, 0.96);
-        }
+        :root { --soft-red: #ff4d6d; --wa-green: #25D366; --text-main: #2d3436; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
             font-family: -apple-system, "PingFang SC", sans-serif;
-            background: #111; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden;
+            background: #f8f9fa; color: var(--text-main);
+            display: flex; justify-content: center;
         }
-        .bg-image {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('2.jpg') center/cover no-repeat;
-            filter: blur(12px); transform: scale(1.1); z-index: -1;
+
+        .phone-container {
+            width: 100%; max-width: 450px; background: #fff; min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05); position: relative; padding-bottom: 100px;
         }
-        .container {
-            position: relative; width: 90%; max-width: 360px; background: var(--glass-bg);
-            border-radius: 30px; overflow: hidden; padding: 45px 20px 30px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+
+        /* 顶部封面图 */
+        .cover-photo {
+            width: 100%; height: 350px; position: relative;
+            background: url('1.jpg') center/cover no-repeat; /* 使用第一张侧脸图 */
         }
-        .progress-bar {
-            position: absolute; top: 0; left: 0; height: 6px;
-            background: linear-gradient(90deg, #ff758c, #ff7eb3); width: 33%; transition: width 0.6s ease;
+        .cover-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
         }
-        .img-wrapper { position: relative; width: 130px; height: 130px; margin: 0 auto 25px; }
-        .deco-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .status-online { position: absolute; bottom: 12px; right: 12px; width: 18px; height: 18px; background: #4cd137; border: 3px solid #fff; border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 209, 55, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(76, 209, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 209, 55, 0); } }
-        h2 { font-size: 20px; color: #222; margin-bottom: 25px; line-height: 1.5; font-weight: 700; }
-        .opt-btn { display: block; width: 100%; padding: 16px; margin-bottom: 12px; background: #fff; border: 1px solid #eee; border-radius: 18px; font-size: 16px; color: #333; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .opt-btn:active { background: #fff0f3; transform: scale(0.97); border-color: #ff758c; }
-        .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .final-btn { 
-            background: var(--wa-green); color: white; padding: 18px; border-radius: 50px; 
-            text-decoration: none; display: flex; align-items: center; justify-content: center; 
-            gap: 10px; font-weight: bold; font-size: 18px; margin-top: 15px; 
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); 
-            animation: bounce 2s infinite; 
+        .cover-name {
+            position: absolute; bottom: 20px; left: 20px; color: #fff;
         }
-        
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
-        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-pink); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .cover-name h1 { font-size: 28px; font-weight: 700; margin-bottom: 5px; }
+        .online-tag { background: #4cd137; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
+        /* 简介内容 */
+        .content { padding: 25px 20px; }
+        .bio-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .bio-text { font-size: 16px; line-height: 1.7; color: #636e72; margin-bottom: 25px; }
+
+        /* 相册区 */
+        .album-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .album-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
+
+        /* 特别提示 */
+        .notice-card {
+            background: #fff5f6; border: 1px solid #ffdde1; padding: 15px; border-radius: 12px; margin-bottom: 25px;
+        }
+        .notice-card p { font-size: 14px; color: var(--soft-red); font-weight: 500; }
+
+        /* 底部固定按钮 */
+        .footer-cta {
+            position: fixed; bottom: 0; max-width: 450px; width: 100%;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 15px 20px 30px; border-top: 1px solid #eee; text-align: center;
+        }
+        .wa-btn {
+            background: var(--wa-green); color: #fff; padding: 16px; border-radius: 50px;
+            text-decoration: none; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 18px; gap: 10px;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
     </style>
 </head>
 <body>
-    <div class="bg-image"></div>
-    <div class="container">
-        <div class="progress-bar" id="progress"></div>
-        
-        <div class="step active" id="step1">
-            <div class="img-wrapper"><img src="1.jpg" class="deco-img"><div class="status-online"></div></div>
-            <h2>如果你在林间遇见我...<br>你会主动跟我打招呼吗？✨</h2>
-            <button class="opt-btn" onclick="nextStep(2, 66)">会啊，你看起来很温柔</button>
-            <button class="opt-btn" onclick="nextStep(2, 66)">可能会先偷偷看你一眼</button>
+
+    <div class="phone-container">
+        <!-- 头部大图 -->
+        <div class="cover-photo">
+            <div class="cover-overlay"></div>
+            <div class="cover-name">
+                <span class="online-tag">● 正在等候 Abang</span>
+                <h1>Aria, 28</h1>
+                <p style="opacity: 0.9; font-size: 14px;">📍 离你很近 · 刚上线</p>
+            </div>
         </div>
 
-        <div class="step" id="step2">
-            <div class="img-wrapper"><img src="2.jpg" class="deco-img"></div>
-            <h2>其实我超无聊的...<br>你会发消息陪我，还是想见面？☕</h2>
-            <button class="opt-btn" onclick="runLoading()">在线陪你聊天</button>
-            <button class="opt-btn" onclick="runLoading()">找机会出来见个面</button>
-        </div>
-
-        <div class="step" id="stepLoading"><div class="spinner"></div><p style="color:#888;">正在开启私人对话通道...</p></div>
-
-        <div class="step" id="stepFinal">
-            <div class="img-wrapper"><img src="3.jpg" class="deco-img"><div class="status-online"></div></div>
-            <h2>Ngam 哦！就是这种感觉。✨</h2>
-            <p style="color:#666; font-size: 13px; line-height: 1.5; margin-bottom: 20px;">
-                加我时记得先打个招呼，我才看得见你哦，不用害羞，这是我的私人号... ❤️
+        <div class="content">
+            <div class="bio-title">✨ 关于我</div>
+            <p class="bio-text">
+                刚来吉隆坡生活不久，发现这座城市很大，心却很空。比起在App上漫无目的地滑动，我更希望能遇见一个成熟、稳重、懂生活的男人。
+                <br><br>
+                我不求轰轰烈烈，只希望在这个喧闹的城市里，有个可以聊聊天、偶尔一起喝杯咖啡的肩膀。
             </p>
-            <!-- 针对 iOS 优化的按钮：直接写 href 链接，删除 JS 跳转 -->
-            <a href="https://hw.url668.com/s/GTCPr8BQN" id="contactButton" target="_blank" class="final-btn">💬 去 WhatsApp 找我 ✨</a>
+
+            <div class="bio-title">📸 我的生活碎片</div>
+            <div class="album-grid">
+                <img src="2.jpg" alt="Aria life"> <!-- 酒红裙背影 -->
+                <img src="3.jpg" alt="Aria private"> <!-- 室内局部 -->
+            </div>
+
+            <div class="notice-card">
+                <p>⚠️ 平时比较忙，这里不常看。这是我私人的 WhatsApp，如果您是那位真诚的 Abang，请直接加我聊吧...</p>
+            </div>
+        </div>
+
+        <div class="footer-cta">
+            <a href="https://hw.url668.com/s/GTCPr8BQN" id="contactButton" target="_blank" class="wa-btn">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.894 4.44-9.897 9.887-.001 2.228.616 3.919 1.67 5.743l-1.097 4.011 4.224-1.108zm11.336-7.391c-.305-.152-1.802-.888-2.081-.989-.279-.101-.482-.152-.684.152-.203.304-.787.989-.965 1.191-.177.203-.355.228-.66.076-.304-.152-1.284-.474-2.447-1.511-.904-.806-1.513-1.802-1.69-2.106-.177-.304-.019-.468.133-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.506.101-.203.051-.38-.025-.532-.076-.152-.684-1.647-.938-2.255-.247-.593-.499-.512-.684-.522-.177-.01-.38-.011-.584-.011-.203 0-.532.076-.811.38-.279.304-1.065 1.039-1.065 2.534s1.09 2.94 1.242 3.142c.152.203 2.146 3.277 5.197 4.591.725.313 1.291.5 1.733.641.728.231 1.391.198 1.915.12.584-.088 1.802-.736 2.056-1.445.253-.709.253-1.317.177-1.445-.077-.127-.279-.203-.584-.355z"/></svg>
+                加我的私密 WhatsApp
+            </a>
+            <p style="font-size: 12px; color: #999; margin-top: 10px;">点击按钮申请添加私聊 · 保证真诚回复</p>
         </div>
     </div>
 
-    <script>
-        const progress = document.getElementById('progress');
-        function showStep(stepId) { 
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active')); 
-            document.getElementById(stepId).classList.add('active'); 
-        }
-        function nextStep(num, barWidth) { 
-            progress.style.width = barWidth + '%'; 
-            showStep('step' + num); 
-        }
-        function runLoading() { 
-            progress.style.width = '90%'; 
-            showStep('stepLoading'); 
-            setTimeout(() => { 
-                progress.style.width = '100%'; 
-                showStep('stepFinal'); 
-            }, 1500); 
-        }
-    </script>
-
-    <!-- 针对 iOS 优化的事件追踪脚本 -->
+    <!-- 事件追踪脚本 -->
     <script type="text/javascript">
-    document.getElementById('contactButton').addEventListener('click', function(e) {
-        // 1. 触发像素追踪 (Contact)
+    document.getElementById('contactButton').addEventListener('click', function() {
         if (typeof fbq === 'function') {
             fbq('track', 'Contact');
         }
-        // 注意：不在这里写 window.location.href，让 <a> 标签的默认 href 起作用
-        // 这种原生跳转在 iOS 上最稳定，不会报 404 或被拦截
+        // iOS 原生 href 跳转已经写在 <a> 标签中，此处无需 window.location
     }, false);
     </script>
+
 </body>
 </html>
