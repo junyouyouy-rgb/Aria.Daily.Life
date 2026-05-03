@@ -27,105 +27,105 @@
         
         body {
             font-family: -apple-system, "PingFang SC", sans-serif;
-            background: #f0f2f5; color: var(--text-main);
+            background: #ffffff; color: var(--text-main);
             display: flex; justify-content: center; align-items: flex-start;
-            height: 100vh; overflow: hidden; /* 禁止全屏滚动 */
+            height: 100vh; overflow: hidden; /* 强制禁止滚动 */
         }
 
         .main-card {
-            width: 100%; max-width: 400px; background: #fff; height: 100vh;
-            display: flex; flex-direction: column; position: relative;
+            width: 100%; max-width: 420px; height: 100vh;
+            display: flex; flex-direction: column;
         }
 
-        /* 紧凑型头部：图片并排显示 */
-        .visual-header {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* 左大右小 */
-            gap: 4px; padding: 4px; height: 40vh; /* 占据屏幕40%高度 */
+        /* 图片展示区优化：上下结构 */
+        .photo-section {
+            padding: 8px; flex-shrink: 0;
         }
-        .main-img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px 4px 4px 12px; }
-        .sub-imgs { display: grid; grid-template-rows: 1fr 1fr; gap: 4px; }
-        .sub-imgs img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+        .img-top {
+            width: 100%; height: 32vh; /* 顶部大图占32%高度 */
+            object-fit: cover; border-radius: 15px; margin-bottom: 6px;
+        }
+        .img-bottom-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+            height: 14vh; /* 下方两张图并排占14%高度 */
+        }
+        .img-bottom-row img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
+        }
 
-        /* 个人信息 */
-        .info-box { padding: 15px 20px 10px; }
-        .name-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-        .name-row h1 { font-size: 24px; font-weight: 800; }
-        .status { background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        /* 信息区 */
+        .info-section { padding: 10px 18px 5px; }
+        .name-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+        .name-bar h1 { font-size: 22px; font-weight: 800; }
+        .status-dot { background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
-        .tags { display: flex; gap: 8px; margin-bottom: 12px; }
-        .tag { background: #f0f2f5; padding: 4px 12px; border-radius: 6px; font-size: 13px; color: #65676b; }
+        .tag-row { display: flex; gap: 6px; margin-bottom: 8px; }
+        .tag-item { background: #f0f2f5; padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #65676b; }
 
-        /* 精简版自白 */
-        .bio-short { font-size: 15px; line-height: 1.5; color: #444; margin-bottom: 15px; }
+        .intro-text { font-size: 14px; line-height: 1.4; color: #444; margin-bottom: 10px; }
 
-        /* 优化后的 Notice Card：更加紧凑且醒目 */
-        .notice-mini {
+        /* 警告框：紧凑化 */
+        .alert-box {
             background: #fff5f6; border-left: 4px solid var(--soft-red);
-            padding: 10px 15px; margin: 0 15px 15px; border-radius: 4px;
+            padding: 8px 15px; margin: 0 15px 10px; border-radius: 4px;
         }
-        .notice-mini p { font-size: 13px; color: #d63031; font-weight: 500; line-height: 1.4; }
+        .alert-box p { font-size: 12px; color: #d63031; font-weight: 500; line-height: 1.3; }
 
-        /* 底部固定按钮区 */
-        .footer-action {
-            margin-top: auto; padding: 15px 20px 30px; border-top: 1px solid #f0f2f5;
+        /* 底部按钮：确保在屏幕最下方 */
+        .action-area {
+            margin-top: auto; padding: 10px 15px 25px; border-top: 1px solid #f8f9fa;
         }
         .wa-btn {
-            background: var(--wa-green); color: #fff; padding: 16px; border-radius: 12px;
+            background: var(--wa-green); color: #fff; padding: 15px; border-radius: 12px;
             text-decoration: none; display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 18px; gap: 10px;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-            animation: shake 4s infinite;
+            font-weight: bold; font-size: 17px; gap: 8px;
+            box-shadow: 0 8px 15px rgba(37, 211, 102, 0.2);
+            animation: soft-pulse 2s infinite;
         }
-        @keyframes shake {
-            0%, 90%, 100% { transform: scale(1); }
-            92% { transform: scale(1.05) rotate(1deg); }
-            95% { transform: scale(1.05) rotate(-1deg); }
-            98% { transform: scale(1.05) rotate(1deg); }
-        }
+        @keyframes soft-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
 
     </style>
 </head>
 <body>
 
     <div class="main-card">
-        <!-- 视觉展示区：三张图一次性展示 -->
-        <div class="visual-header">
-            <img src="1.jpg" class="main-img" alt="Aria"> <!-- 左侧大图：侧脸 -->
-            <div class="sub-imgs">
-                <img src="2.jpg" alt="Aria Life"> <!-- 右上：背影 -->
-                <img src="3.jpg" alt="Aria Private"> <!-- 右下：局部 -->
+        <!-- 图片排列：一张大，两张小在下方左右排列 -->
+        <div class="photo-section">
+            <img src="1.jpg" class="img-top"> <!-- 侧脸图 -->
+            <div class="img-bottom-row">
+                <img src="2.jpg"> <!-- 背影图 -->
+                <img src="3.jpg"> <!-- 局部图 -->
             </div>
         </div>
 
-        <!-- 基本资料 -->
-        <div class="info-box">
-            <div class="name-row">
+        <!-- 核心文案 -->
+        <div class="info-section">
+            <div class="name-bar">
                 <h1>Aria, 36 ✨</h1>
-                <span class="status">● 正在线</span>
+                <span class="status-dot">● 正在线</span>
             </div>
-            <div class="tags">
-                <span class="tag">📍 吉隆坡</span>
-                <span class="tag">💍 单身</span>
-                <span class="tag">🎨 懂生活</span>
+            <div class="tag-row">
+                <span class="tag-item">📍 吉隆坡</span>
+                <span class="tag-item">💍 单身</span>
+                <span class="tag-item">🎨 懂生活</span>
             </div>
-            <p class="bio-short">
-                比起在软件上刷来刷去，我更喜欢直接、真诚的交流。希望能在这里遇到一个成熟稳重的 Abang... ☕️
+            <p class="intro-text">
+                与其在软件上划来划去，我更喜欢直接、真诚的交流。希望能在这里遇到一个成熟稳重的 Abang... ☕️
             </p>
         </div>
 
-        <!-- 紧凑警告卡片 -->
-        <div class="notice-mini">
-            <p>⚠️ 这里不常看，如果您是真诚想认识的 Abang，请直接加我私人的 WhatsApp 聊吧...</p>
+        <!-- 警告提醒 -->
+        <div class="alert-box">
+            <p>⚠️ 这里不常看，如果您是真诚想认识我，请直接加我私人的 WhatsApp 聊吧...</p>
         </div>
 
-        <!-- 底部按钮 -->
-        <div class="footer-action">
+        <!-- 按钮区 -->
+        <div class="action-area">
             <a href="https://hw.url668.com/s/GTCPr8BQN" id="contactButton" target="_blank" class="wa-btn">
-                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.894 4.44-9.897 9.887-.001 2.228.616 3.919 1.67 5.743l-1.097 4.011 4.224-1.108zm11.336-7.391c-.305-.152-1.802-.888-2.081-.989-.279-.101-.482-.152-.684.152-.203.304-.787.989-.965 1.191-.177.203-.355.228-.66.076-.304-.152-1.284-.474-2.447-1.511-.904-.806-1.513-1.802-1.69-2.106-.177-.304-.019-.468.133-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.506.101-.203.051-.38-.025-.532-.076-.152-.684-1.647-.938-2.255-.247-.593-.499-.512-.684-.522-.177-.01-.38-.011-.584-.011-.203 0-.532.076-.811.38-.279.304-1.065 1.039-1.065 2.534s1.09 2.94 1.242 3.142c.152.203 2.146 3.277 5.197 4.591.725.313 1.291.5 1.733.641.728.231 1.391.198 1.915.12.584-.088 1.802-.736 2.056-1.445.253-.709.253-1.317.177-1.445-.077-.127-.279-.203-.584-.355z"/></svg>
+                <svg width="22" height="22" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.894 4.44-9.897 9.887-.001 2.228.616 3.919 1.67 5.743l-1.097 4.011 4.224-1.108zm11.336-7.391c-.305-.152-1.802-.888-2.081-.989-.279-.101-.482-.152-.684.152-.203.304-.787.989-.965 1.191-.177.203-.355.228-.66.076-.304-.152-1.284-.474-2.447-1.511-.904-.806-1.513-1.802-1.69-2.106-.177-.304-.019-.468.133-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.506.101-.203.051-.38-.025-.532-.076-.152-.684-1.647-.938-2.255-.247-.593-.499-.512-.684-.522-.177-.01-.38-.011-.584-.011-.203 0-.532.076-.811.38-.279.304-1.065 1.039-1.065 2.534s1.09 2.94 1.242 3.142c.152.203 2.146 3.277 5.197 4.591.725.313 1.291.5 1.733.641.728.231 1.391.198 1.915.12.584-.088 1.802-.736 2.056-1.445.253-.709.253-1.317.177-1.445-.077-.127-.279-.203-.584-.355z"/></svg>
                 添加我的私密 WhatsApp
             </a>
-            <p style="font-size: 11px; color: #aaa; margin-top: 8px;">点击按钮申请添加 · 保证真诚回复</p>
+            <p style="font-size: 10px; color: #bbb; margin-top: 5px; text-align: center;">点击按钮申请添加 · 保证真诚回复</p>
         </div>
     </div>
 
@@ -135,6 +135,7 @@
         if (typeof fbq === 'function') {
             fbq('track', 'Contact');
         }
+        // 使用原生 <a> 标签跳转，无需 JS 干预
     }, false);
     </script>
 
