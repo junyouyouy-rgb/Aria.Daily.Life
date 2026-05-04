@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>遇见 Aria</title>
     
-    <!-- 针对马来西亚跳转速度的预解析 -->
+    <!-- 针对马来西亚分流域名 hw.url668.com 的速度优化 -->
     <link rel="preconnect" href="https://hw.url668.com">
     <link rel="dns-prefetch" href="https://hw.url668.com">
 
@@ -33,7 +33,7 @@
             font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
             background: #ffffff; color: var(--text-main);
             display: flex; justify-content: center; align-items: flex-start;
-            height: 100vh; overflow: hidden; /* 强制禁止滚动，适配一屏显示 */
+            height: 100vh; overflow: hidden; 
         }
 
         .main-card {
@@ -41,13 +41,13 @@
             display: flex; flex-direction: column;
         }
 
-        /* 顶部大图：占 35% 高度 */
+        /* 布局：35% 大图 */
         .img-main {
             width: 100%; height: 35vh; 
             object-fit: cover; flex-shrink: 0;
         }
 
-        /* 信息区：本地化文案适配 */
+        /* 信息区：22% */
         .info-box { 
             padding: 12px 18px 5px; 
             height: 22vh;
@@ -59,11 +59,9 @@
 
         .tags { display: flex; gap: 6px; margin-bottom: 8px; }
         .tag { background: #f0f2f5; padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #65676b; font-weight: 500; }
-
-        /* 针对大叔心理的温婉文案 */
         .bio-text { font-size: 14.5px; line-height: 1.5; color: #444; }
 
-        /* 图片二排并行：占 15% 高度，开启懒加载 */
+        /* 图片二排并行：15% */
         .img-row {
             display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
             padding: 0 15px; height: 15vh; flex-shrink: 0;
@@ -72,7 +70,7 @@
             width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
         }
 
-        /* 警告框：本地化习惯语 */
+        /* 警告框：10% */
         .alert-box {
             background: #fff5f6; border-left: 4px solid var(--soft-red);
             padding: 8px 15px; margin: 10px 15px 5px; border-radius: 4px;
@@ -80,7 +78,7 @@
         }
         .alert-box p { font-size: 12.5px; color: #d63031; font-weight: 600; line-height: 1.4; }
 
-        /* 按钮区：增加大叔点击欲望 */
+        /* 按钮区 */
         .action-area {
             margin-top: auto; padding: 10px 15px 25px;
             flex-shrink: 0;
@@ -92,12 +90,7 @@
             box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
             animation: soft-pulse 2s infinite;
         }
-        @keyframes soft-pulse { 
-            0% { transform: scale(1); } 
-            50% { transform: scale(1.04); } 
-            100% { transform: scale(1); } 
-        }
-
+        @keyframes soft-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -106,11 +99,11 @@
         <!-- 1. 顶部大图 -->
         <img src="1.jpg" class="img-main">
 
-        <!-- 2. 文字信息：大马本地化适配 -->
+        <!-- 2. 本地化文案 -->
         <div class="info-box">
             <div class="name-bar">
                 <h1>Aria, 36 ✨</h1>
-                <span class="status-tag">Online 现在在线🟢</span>
+                <span class="status-tag">Online 现在在线 🟢</span>
             </div>
             <div class="tags">
                 <span class="tag">📍 KL / Selangor</span>
@@ -122,19 +115,20 @@
             </p>
         </div>
 
-        <!-- 3. 图片左右并列：大马流量包加载优化 -->
+        <!-- 3. 图片左右并列 -->
         <div class="img-row">
-            <img src="2.jpg" loading="lazy"> <!-- 背影图 -->
-            <img src="3.jpg" loading="lazy"> <!-- 局部图 -->
+            <img src="2.jpg" loading="lazy">
+            <img src="3.jpg" loading="lazy">
         </div>
 
-        <!-- 4. 针对大叔的特别提示 -->
+        <!-- 4. 特别提示 -->
         <div class="alert-box">
             <p>⚠️ 这里不常在线，如果您是真诚想认识的大哥，请直接加我私人的 WhatsApp 聊吧...</p>
         </div>
 
-        <!-- 5. 底部按钮：增加社交信任感 -->
+        <!-- 5. 底部跳转按钮 -->
         <div class="action-area">
+            <!-- 已替换你的最新链接，增加 target="_blank" 提高 iOS 唤起 App 成功率 -->
             <a href="https://hw.url668.com/s/GTtiWCkQ8" id="contactButton" target="_blank" class="wa-btn">
                 <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.894 4.44-9.897 9.887-.001 2.228.616 3.919 1.67 5.743l-1.097 4.011 4.224-1.108zm11.336-7.391c-.305-.152-1.802-.888-2.081-.989-.279-.101-.482-.152-.684.152-.203.304-.787.989-.965 1.191-.177.203-.355.228-.66.076-.304-.152-1.284-.474-2.447-1.511-.904-.806-1.513-1.802-1.69-2.106-.177-.304-.019-.468.133-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.506.101-.203.051-.38-.025-.532-.076-.152-.684-1.647-.938-2.255-.247-.593-.499-.512-.684-.522-.177-.01-.38-.011-.584-.011-.203 0-.532.076-.811.38-.279.304-1.065 1.039-1.065 2.534s1.09 2.94 1.242 3.142c.152.203 2.146 3.277 5.197 4.591.725.313 1.291.5 1.733.641.728.231 1.391.198 1.915.12.584-.088 1.802-.736 2.056-1.445.253-.709.253-1.317.177-1.445-.077-.127-.279-.203-.584-.355z"/></svg>
                 WhatsApp 私聊我 (Personal No)
@@ -143,12 +137,16 @@
         </div>
     </div>
 
-    <!-- 保持原始事件追踪逻辑 -->
+    <!-- 事件追踪脚本：符合你的原始监听结构 -->
     <script type="text/javascript">
-    document.getElementById('contactButton').addEventListener('click', function() {
+    document.getElementById('contactButton').addEventListener('click', function(e) {
+        // 1. 发射 Contact 信号
         if (typeof fbq === 'function') {
             fbq('track', 'Contact');
         }
+        // 2. iOS 兼容性逻辑：由于使用了原生 <a> 标签和 target="_blank"，
+        // 信号会在跳转的同时发出，不需要阻止默认行为（event.preventDefault），
+        // 这样在 iOS 上是最稳的，完全避免 404。
     }, false);
     </script>
 
