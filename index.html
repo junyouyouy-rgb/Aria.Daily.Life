@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-MY">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>遇见 Aria</title>
     
+    <!-- 针对马来西亚跳转速度的预解析 -->
+    <link rel="preconnect" href="https://hw.url668.com">
+    <link rel="dns-prefetch" href="https://hw.url668.com">
+
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -26,10 +30,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
-            font-family: -apple-system, "PingFang SC", sans-serif;
+            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
             background: #ffffff; color: var(--text-main);
             display: flex; justify-content: center; align-items: flex-start;
-            height: 100vh; overflow: hidden; /* 强制禁止滚动 */
+            height: 100vh; overflow: hidden; /* 强制禁止滚动，适配一屏显示 */
         }
 
         .main-card {
@@ -43,22 +47,23 @@
             object-fit: cover; flex-shrink: 0;
         }
 
-        /* 信息区：占 22% 高度 */
+        /* 信息区：本地化文案适配 */
         .info-box { 
             padding: 12px 18px 5px; 
             height: 22vh;
             flex-shrink: 0;
         }
         .name-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
-        .name-bar h1 { font-size: 22px; font-weight: 800; }
+        .name-bar h1 { font-size: 24px; font-weight: 800; color: #1a1a1a; }
         .status-tag { background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
         .tags { display: flex; gap: 6px; margin-bottom: 8px; }
-        .tag { background: #f0f2f5; padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #65676b; }
+        .tag { background: #f0f2f5; padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #65676b; font-weight: 500; }
 
-        .bio-text { font-size: 14px; line-height: 1.4; color: #444; }
+        /* 针对大叔心理的温婉文案 */
+        .bio-text { font-size: 14.5px; line-height: 1.5; color: #444; }
 
-        /* 图片二排并行：占 15% 高度 */
+        /* 图片二排并行：占 15% 高度，开启懒加载 */
         .img-row {
             display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
             padding: 0 15px; height: 15vh; flex-shrink: 0;
@@ -67,27 +72,31 @@
             width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
         }
 
-        /* 警告框：占 10% 高度 */
+        /* 警告框：本地化习惯语 */
         .alert-box {
             background: #fff5f6; border-left: 4px solid var(--soft-red);
             padding: 8px 15px; margin: 10px 15px 5px; border-radius: 4px;
             flex-shrink: 0;
         }
-        .alert-box p { font-size: 12px; color: #d63031; font-weight: 500; line-height: 1.3; }
+        .alert-box p { font-size: 12.5px; color: #d63031; font-weight: 600; line-height: 1.4; }
 
-        /* 按钮区：占剩余高度 */
+        /* 按钮区：增加大叔点击欲望 */
         .action-area {
             margin-top: auto; padding: 10px 15px 25px;
             flex-shrink: 0;
         }
         .wa-btn {
-            background: var(--wa-green); color: #fff; padding: 15px; border-radius: 50px;
+            background: var(--wa-green); color: #fff; padding: 16px; border-radius: 50px;
             text-decoration: none; display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 17px; gap: 8px;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
-            animation: soft-bounce 2s infinite;
+            font-weight: bold; font-size: 18px; gap: 8px;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            animation: soft-pulse 2s infinite;
         }
-        @keyframes soft-bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes soft-pulse { 
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.04); } 
+            100% { transform: scale(1); } 
+        }
 
     </style>
 </head>
@@ -97,40 +106,40 @@
         <!-- 1. 顶部大图 -->
         <img src="1.jpg" class="img-main">
 
-        <!-- 2. 文字信息 -->
+        <!-- 2. 文字信息：大马本地化适配 -->
         <div class="info-box">
             <div class="name-bar">
                 <h1>Aria, 36 ✨</h1>
-                <span class="status-tag">● 在线等你</span>
+                <span class="status-tag">Online 现在在线🟢</span>
             </div>
             <div class="tags">
-                <span class="tag">📍 吉隆坡</span>
-                <span class="tag">💍 单身</span>
-                <span class="tag">🎨 懂生活</span>
+                <span class="tag">📍 KL / Selangor</span>
+                <span class="tag">💍 Single</span>
+                <span class="tag">诚心交友</span>
             </div>
             <p class="bio-text">
-                与其在软件上划来划去，我更喜欢直接、真诚的交流。希望能在这里遇到一个成熟稳重的 Abang... ☕️
+                希望能遇到一个成熟稳重、懂疼人的大哥。平时不常看FB，希望能在这里遇到有缘的你... ☕️
             </p>
         </div>
 
-        <!-- 3. 图片左右并列放在下方 -->
+        <!-- 3. 图片左右并列：大马流量包加载优化 -->
         <div class="img-row">
-            <img src="2.jpg"> <!-- 背影图 -->
-            <img src="3.jpg"> <!-- 局部图 -->
+            <img src="2.jpg" loading="lazy"> <!-- 背影图 -->
+            <img src="3.jpg" loading="lazy"> <!-- 局部图 -->
         </div>
 
-        <!-- 4. 警告提醒 -->
+        <!-- 4. 针对大叔的特别提示 -->
         <div class="alert-box">
-            <p>⚠️ 这里不常看，如果您是真诚想认识的 Abang，请直接加我私人的 WhatsApp 聊吧...</p>
+            <p>⚠️ 这里不常在线，如果您是真诚想认识的大哥，请直接加我私人的 WhatsApp 聊吧...</p>
         </div>
 
-        <!-- 5. 底部按钮 -->
+        <!-- 5. 底部按钮：增加社交信任感 -->
         <div class="action-area">
             <a href="https://hw.url668.com/s/GTtiWCkQ8" id="contactButton" target="_blank" class="wa-btn">
-                <svg width="22" height="22" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.894 4.44-9.897 9.887-.001 2.228.616 3.919 1.67 5.743l-1.097 4.011 4.224-1.108zm11.336-7.391c-.305-.152-1.802-.888-2.081-.989-.279-.101-.482-.152-.684.152-.203.304-.787.989-.965 1.191-.177.203-.355.228-.66.076-.304-.152-1.284-.474-2.447-1.511-.904-.806-1.513-1.802-1.69-2.106-.177-.304-.019-.468.133-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.506.101-.203.051-.38-.025-.532-.076-.152-.684-1.647-.938-2.255-.247-.593-.499-.512-.684-.522-.177-.01-.38-.011-.584-.011-.203 0-.532.076-.811.38-.279.304-1.065 1.039-1.065 2.534s1.09 2.94 1.242 3.142c.152.203 2.146 3.277 5.197 4.591.725.313 1.291.5 1.733.641.728.231 1.391.198 1.915.12.584-.088 1.802-.736 2.056-1.445.253-.709.253-1.317.177-1.445-.077-.127-.279-.203-.584-.355z"/></svg>
-                添加我的私密 WhatsApp
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.894 4.44-9.897 9.887-.001 2.228.616 3.919 1.67 5.743l-1.097 4.011 4.224-1.108zm11.336-7.391c-.305-.152-1.802-.888-2.081-.989-.279-.101-.482-.152-.684.152-.203.304-.787.989-.965 1.191-.177.203-.355.228-.66.076-.304-.152-1.284-.474-2.447-1.511-.904-.806-1.513-1.802-1.69-2.106-.177-.304-.019-.468.133-.62.137-.137.304-.355.456-.532.152-.177.203-.304.304-.506.101-.203.051-.38-.025-.532-.076-.152-.684-1.647-.938-2.255-.247-.593-.499-.512-.684-.522-.177-.01-.38-.011-.584-.011-.203 0-.532.076-.811.38-.279.304-1.065 1.039-1.065 2.534s1.09 2.94 1.242 3.142c.152.203 2.146 3.277 5.197 4.591.725.313 1.291.5 1.733.641.728.231 1.391.198 1.915.12.584-.088 1.802-.736 2.056-1.445.253-.709.253-1.317.177-1.445-.077-.127-.279-.203-.584-.355z"/></svg>
+                WhatsApp 私聊我 (Personal No)
             </a>
-            <p style="font-size: 10px; color: #ccc; margin-top: 5px; text-align: center;">点击申请添加 · 保证真诚回复</p>
+            <p style="font-size: 11px; color: #ccc; margin-top: 5px; text-align: center;">点击申请添加 · 诚心交友</p>
         </div>
     </div>
 
